@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KotlinTest</string>
+
+    <string name="title_popular">Popular</string>
+    <string name="title_top_rated">Top Rated</string>
+    <string name="title_upcoming">Upcoming</string>
+</resources>
