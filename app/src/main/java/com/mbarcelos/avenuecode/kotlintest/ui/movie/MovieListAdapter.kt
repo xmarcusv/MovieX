@@ -25,5 +25,4 @@ class MovieListAdapter : DataBindAdapter<Movie, MovieRowBinding>(R.layout.movie_
             })
         }
     }
-
 }

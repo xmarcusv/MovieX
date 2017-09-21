@@ -1,5 +1,6 @@
 package com.mbarcelos.avenuecode.kotlintest.di
 
+import com.mbarcelos.avenuecode.kotlintest.BuildConfig
 import com.mbarcelos.avenuecode.kotlintest.api.MovieService
 import com.mbarcelos.avenuecode.kotlintest.util.LiveDataCallAdapterFactory
 import com.squareup.moshi.KotlinJsonAdapterFactory
@@ -7,6 +8,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -36,6 +38,10 @@ class NetworkModule {
 
                 val request = requestBuilder.build()
                 chain.proceed(request)
+            }
+
+            BuildConfig.DEBUG.let {
+                addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             }
         }.build()
     }

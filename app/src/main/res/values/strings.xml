@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">KotlinTest</string>
+    <string name="app_name">MovieX</string>
 
-    <string name="title_popular">Popular</string>
-    <string name="title_top_rated">Top Rated</string>
-    <string name="title_upcoming">Upcoming</string>
+    <string name="title_popular">MOST POPULAR</string>
+    <string name="title_top_rated">TOP RATED</string>
+    <string name="title_upcoming">UPCOMING</string>
 </resources>
