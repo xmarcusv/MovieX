@@ -2,6 +2,7 @@ package com.xmarcusv.moviex
 
 import android.app.Activity
 import android.app.Application
+import android.util.Log
 import com.xmarcusv.moviex.di.DaggerAppComponent
 import com.xmarcusv.moviex.di.applyAutoInjector
 import dagger.android.DispatchingAndroidInjector
@@ -19,7 +20,15 @@ class App : Application(), HasActivityInjector {
 
         applyAutoInjector()
 
-        Timber.plant(Timber.DebugTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        } else {
+            Timber.plant(object : Timber.DebugTree() {
+                override fun isLoggable(tag: String?, priority: Int): Boolean {
+                    return priority == Log.WARN || priority == Log.ERROR
+                }
+            })
+        }
 
         DaggerAppComponent
                 .builder()
