@@ -1,4 +1,4 @@
-package com.mbarcelos.avenuecode.kotlintest.ui.movie
+package com.mbarcelos.avenuecode.kotlintest.ui.list
 
 import android.arch.lifecycle.MediatorLiveData
 import com.mbarcelos.avenuecode.kotlintest.R
@@ -8,7 +8,7 @@ import com.mbarcelos.avenuecode.kotlintest.ui.DataBindAdapter
 
 class MovieListAdapter : DataBindAdapter<Movie, MovieRowBinding>(R.layout.movie_row) {
 
-    val moveLiveData = MediatorLiveData<Movie>()
+    val movieLiveData = MediatorLiveData<Movie>()
 
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
@@ -20,10 +20,9 @@ class MovieListAdapter : DataBindAdapter<Movie, MovieRowBinding>(R.layout.movie_
 
     override fun bind(holder: DataBindViewHolder<MovieRowBinding>, position: Int) {
         holder.binding.viewModel = MovieRowViewModel(items[position]).apply {
-            moveLiveData.addSource(selectedMovieLiveData, {
-                moveLiveData.value = it
+            movieLiveData.addSource(selectedMovieLiveData, {
+                movieLiveData.value = it
             })
         }
     }
-
 }

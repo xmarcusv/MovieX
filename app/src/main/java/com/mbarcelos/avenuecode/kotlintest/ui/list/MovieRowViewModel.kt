@@ -1,8 +1,9 @@
-package com.mbarcelos.avenuecode.kotlintest.ui.movie
+package com.mbarcelos.avenuecode.kotlintest.ui.list
 
 import android.arch.lifecycle.MutableLiveData
 import android.view.View
 import com.mbarcelos.avenuecode.kotlintest.model.Movie
+import com.mbarcelos.avenuecode.kotlintest.util.Constants
 
 class MovieRowViewModel(private val movie: Movie) {
 
@@ -14,7 +15,7 @@ class MovieRowViewModel(private val movie: Movie) {
         selectedMovieLiveData.value = movie
     }
 
-    fun getImageUrl(): String {
-        return "https://image.tmdb.org/t/p/w154${movie.posterPath}"
+    fun getPosterUrl(): String {
+        return Constants.IMAGE_URL.format(Constants.POSTER_SIZE, movie.posterPath)
     }
 }
