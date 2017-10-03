@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.mbarcelos.avenuecode.kotlintest.ui.list.MovieViewModel" />
+            type="com.xmarcusv.moviex.ui.list.MovieViewModel" />
     </data>
 
     <ScrollView
