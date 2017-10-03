@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.mbarcelos.avenuecode.kotlintest.ui.details.MovieDetailsViewModel" />
+            type="com.xmarcusv.moviex.ui.details.MovieDetailsViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -70,7 +70,7 @@
             app:cardElevation="8dp"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|left|start"
-            app:layout_behavior="com.mbarcelos.avenuecode.kotlintest.util.MoviePosterBehavior">
+            app:layout_behavior="com.xmarcusv.moviex.util.MoviePosterBehavior">
 
             <ImageView
                 android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package com.mbarcelos.avenuecode.kotlintest
+package com.xmarcusv.moviex
 
 import org.junit.Test
 
