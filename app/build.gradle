@@ -6,9 +6,15 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+
+def getMovieDBKey = { ->
+    def code = project.hasProperty('tmdbKey') ? tmdbKey : "\"\""
+    return code
+}
+
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.mbarcelos.avenuecode.kotlintest"
         minSdkVersion 16
@@ -17,6 +23,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField "String", "MOVIE_DB_KEY", getMovieDBKey()
     }
     buildTypes {
         release {

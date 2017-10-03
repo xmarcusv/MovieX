@@ -53,9 +53,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="teste teste teste teste teste teste teste " />
-
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -93,7 +91,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Movie title"
                 tools:text="Movie Title" />
 
         </android.support.constraint.ConstraintLayout>

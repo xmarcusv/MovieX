@@ -32,7 +32,7 @@ class NetworkModule {
                 val originalHttpUrl = original.url()
 
                 val url = originalHttpUrl.newBuilder()
-                        .addQueryParameter("api_key", "b015dae6413cf9309437095b36d4d45b")
+                        .addQueryParameter("api_key", BuildConfig.MOVIE_DB_KEY)
                         .build()
 
                 val requestBuilder = original.newBuilder().url(url)

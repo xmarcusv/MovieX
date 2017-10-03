@@ -3,7 +3,6 @@ package com.mbarcelos.avenuecode.kotlintest.ui.list
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -14,7 +13,6 @@ import com.mbarcelos.avenuecode.kotlintest.di.Injectable
 import com.mbarcelos.avenuecode.kotlintest.model.Movie
 import com.mbarcelos.avenuecode.kotlintest.ui.details.MovieDetailsActivity
 import com.mbarcelos.avenuecode.kotlintest.util.observe
-import org.parceler.Parcels
 import javax.inject.Inject
 
 
@@ -61,9 +59,7 @@ class MainActivity : AppCompatActivity(), Injectable {
 
     private fun openDetailsActivity(selectedMovie: Movie?) {
         selectedMovie?.let {
-            startActivity(Intent(this, MovieDetailsActivity::class.java).apply {
-                putExtra(MovieDetailsActivity.MOVIE_PARAM, Parcels.wrap(selectedMovie))
-            })
+            MovieDetailsActivity.startActivity(this, selectedMovie)
         }
     }
 }

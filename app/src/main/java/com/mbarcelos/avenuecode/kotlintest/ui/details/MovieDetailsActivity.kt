@@ -2,6 +2,8 @@ package com.mbarcelos.avenuecode.kotlintest.ui.details
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -15,7 +17,13 @@ import javax.inject.Inject
 class MovieDetailsActivity : AppCompatActivity(), Injectable {
 
     companion object {
-        val MOVIE_PARAM = "movie"
+        private val MOVIE_PARAM = "movie"
+
+        fun startActivity(context: Context, selectedMovie: Movie) {
+            context.startActivity(Intent(context, MovieDetailsActivity::class.java).apply {
+                putExtra(MOVIE_PARAM, Parcels.wrap(selectedMovie))
+            })
+        }
     }
 
     @Inject
