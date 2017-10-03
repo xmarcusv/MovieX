@@ -1,9 +1,9 @@
-package com.mbarcelos.avenuecode.kotlintest.ui.movie
+package com.mbarcelos.avenuecode.kotlintest.ui.list
 
-import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -11,23 +11,23 @@ import android.support.v7.widget.LinearLayoutManager
 import com.mbarcelos.avenuecode.kotlintest.R
 import com.mbarcelos.avenuecode.kotlintest.databinding.ActivityMainBinding
 import com.mbarcelos.avenuecode.kotlintest.di.Injectable
+import com.mbarcelos.avenuecode.kotlintest.model.Movie
+import com.mbarcelos.avenuecode.kotlintest.ui.details.MovieDetailsActivity
+import com.mbarcelos.avenuecode.kotlintest.util.observe
+import org.parceler.Parcels
 import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity(), Injectable {
-
-    internal val lifecycleRegistry = LifecycleRegistry(this)
-
-    override fun getLifecycle(): LifecycleRegistry = lifecycleRegistry
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val movieViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(MovieViewModel::class.java) }
 
-    var mostPopularAdapter = MovieListAdapter()
-    var topRatedAdapter = MovieListAdapter()
-    var upcomingAdapter = MovieListAdapter()
+    private var mostPopularAdapter = MovieListAdapter()
+    private var topRatedAdapter = MovieListAdapter()
+    private var upcomingAdapter = MovieListAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +50,20 @@ class MainActivity : AppCompatActivity(), Injectable {
             binding.upcomingList.adapter = upcomingAdapter
         }
 
-        movieViewModel.mostPopularList.observe(this, Observer { it?.let { mostPopularAdapter.update(it) } })
-        movieViewModel.topRatedList.observe(this, Observer { it?.let { topRatedAdapter.update(it) } })
-        movieViewModel.upcomingList.observe(this, Observer { it?.let { upcomingAdapter.update(it) } })
+        movieViewModel.mostPopularList.observe(this, Observer { it?.data?.let { mostPopularAdapter.update(it) } })
+        movieViewModel.topRatedList.observe(this, Observer { it?.data?.let { topRatedAdapter.update(it) } })
+        movieViewModel.upcomingList.observe(this, Observer { it?.data?.let { upcomingAdapter.update(it) } })
+
+        mostPopularAdapter.movieLiveData.observe(this, this::openDetailsActivity)
+        topRatedAdapter.movieLiveData.observe(this, this::openDetailsActivity)
+        upcomingAdapter.movieLiveData.observe(this, this::openDetailsActivity)
+    }
+
+    private fun openDetailsActivity(selectedMovie: Movie?) {
+        selectedMovie?.let {
+            startActivity(Intent(this, MovieDetailsActivity::class.java).apply {
+                putExtra(MovieDetailsActivity.MOVIE_PARAM, Parcels.wrap(selectedMovie))
+            })
+        }
     }
 }

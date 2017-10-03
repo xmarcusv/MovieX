@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.mbarcelos.avenuecode.kotlintest.ui.movie.MovieViewModel" />
+            type="com.mbarcelos.avenuecode.kotlintest.ui.list.MovieViewModel" />
     </data>
 
     <ScrollView
@@ -59,12 +59,22 @@
                 android:id="@+id/popular_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/poster_height"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/popular_line"
                 tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 tools:listitem="@layout/movie_row" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/poster_height"
+                android:visibility="@{viewModel.mostPopularLoadingVisibility}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/popular_line" />
 
             <!--Top Rated-->
             <TextView
@@ -94,12 +104,22 @@
                 android:id="@+id/top_rated_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/poster_height"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/top_rated_line"
                 tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 tools:listitem="@layout/movie_row" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/poster_height"
+                android:visibility="@{viewModel.topRatedLoadingVisibility}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/top_rated_line" />
 
             <!--Upcomming-->
             <TextView
@@ -129,12 +149,22 @@
                 android:id="@+id/upcoming_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/poster_height"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/upcoming_line"
                 tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 tools:listitem="@layout/movie_row" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/poster_height"
+                android:visibility="@{viewModel.upcomingLoadingVisibility}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/upcoming_line" />
 
             <!--Toolbar-->
             <android.support.v7.widget.Toolbar

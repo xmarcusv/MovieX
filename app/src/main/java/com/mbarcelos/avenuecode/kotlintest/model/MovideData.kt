@@ -1,8 +1,11 @@
 package com.mbarcelos.avenuecode.kotlintest.model
 
 import com.squareup.moshi.Json
+import org.parceler.Parcel
+import org.parceler.ParcelConstructor
 
-data class Movie(
+@Parcel(Parcel.Serialization.BEAN)
+data class Movie @ParcelConstructor constructor(
         @Json(name = "vote_count")
         var voteCount: Int,
         @Json(name = "id")

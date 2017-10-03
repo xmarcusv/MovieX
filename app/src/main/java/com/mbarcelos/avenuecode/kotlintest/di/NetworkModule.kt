@@ -2,14 +2,15 @@ package com.mbarcelos.avenuecode.kotlintest.di
 
 import com.mbarcelos.avenuecode.kotlintest.BuildConfig
 import com.mbarcelos.avenuecode.kotlintest.api.MovieService
-import com.mbarcelos.avenuecode.kotlintest.util.LiveDataCallAdapterFactory
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
@@ -52,7 +53,7 @@ class NetworkModule {
             = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .client(oktHttpClient)
             .build()
 

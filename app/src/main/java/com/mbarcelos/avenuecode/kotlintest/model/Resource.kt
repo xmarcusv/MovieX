@@ -1,7 +1,7 @@
 package com.mbarcelos.avenuecode.kotlintest.model
 
 
-class Resource<T> internal constructor(val status: Status, val data: T?, val message: String?) {
+class Resource<out T> internal constructor(val status: Status, val data: T?, val message: String?) {
     companion object {
         fun <T> success(data: T?): Resource<T> {
             return Resource(Status.SUCCESS, data, null)
