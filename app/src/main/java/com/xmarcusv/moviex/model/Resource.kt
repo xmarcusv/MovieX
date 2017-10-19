@@ -11,8 +11,8 @@ class Resource<out T> internal constructor(val status: Status, val data: T?, val
             return Resource(Status.ERROR, data, msg)
         }
 
-        fun <T> loading(data: T?): Resource<T> {
-            return Resource(Status.LOADING, data, null)
+        fun <T> loading(): Resource<T> {
+            return Resource(Status.LOADING, null, null)
         }
     }
 }

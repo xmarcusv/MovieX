@@ -2,9 +2,7 @@
 
 Sample app to show a MVVM architecture using Android Arch and RxJava.
 
-Still in development.
-
-
+WIP
 
 ## License
 

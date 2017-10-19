@@ -39,6 +39,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:src="@{viewModel.posterUrl}"
+                    app:imageOptions="@{viewModel.posterOptions}"
                     tools:layout_width="100dp" />
 
                 <TextView

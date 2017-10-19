@@ -3,8 +3,8 @@ package com.xmarcusv.moviex.ui.list
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
 import android.view.View
-import com.xmarcusv.moviex.model.MOVIE_LIST_TYPE
 import com.xmarcusv.moviex.model.Movie
+import com.xmarcusv.moviex.model.MovieListType
 import com.xmarcusv.moviex.model.Resource
 import com.xmarcusv.moviex.model.Status
 import com.xmarcusv.moviex.repository.MovieRepository
@@ -22,16 +22,19 @@ class MovieViewModel @Inject constructor(private var movieRepository: MovieRepos
     val upcomingLoadingVisibility = ObservableField<Int>(View.GONE)
 
     init {
-        load(MOVIE_LIST_TYPE.POPULAR, mostPopularList, mostPopularLoadingVisibility)
-        load(MOVIE_LIST_TYPE.TOP_RATED, topRatedList, topRatedLoadingVisibility)
-        load(MOVIE_LIST_TYPE.UPCOMING, upcomingList, upcomingLoadingVisibility)
+        load(MovieListType.POPULAR, mostPopularList, mostPopularLoadingVisibility)
+        load(MovieListType.TOP_RATED, topRatedList, topRatedLoadingVisibility)
+        load(MovieListType.UPCOMING, upcomingList, upcomingLoadingVisibility)
     }
 
-    private fun load(movieListType: MOVIE_LIST_TYPE, list: MutableLiveData<Resource<List<Movie>>>, loading: ObservableField<Int>) {
-        compositeDisposable.add(movieRepository.getMovies(movieListType = movieListType).subscribe({ resource: Resource<List<Movie>>? ->
-            list.value = resource
-            loading.set(getLoadingVisibilityByList(list))
-        }))
+    private fun load(movieListType: MovieListType, list: MutableLiveData<Resource<List<Movie>>>, loading: ObservableField<Int>) {
+        compositeDisposable
+                .add(movieRepository
+                        .getMovies(movieListType = movieListType)
+                        .subscribe({ resource: Resource<List<Movie>>? ->
+                            list.value = resource
+                            loading.set(getLoadingVisibilityByList(list))
+                        }))
     }
 
     private fun getLoadingVisibilityByList(list: MutableLiveData<Resource<List<Movie>>>): Int {

@@ -24,12 +24,12 @@ class MoviePosterBehavior(context: Context, attrs: AttributeSet) : CoordinatorLa
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, child: CardView, dependency: View?): Boolean {
         if (dependency is AppBarLayout) {
-            updateVisibilityForAppBarLayout(parent, dependency, child)
+            updateVisibilityForAppBarLayout(dependency, child)
         }
         return false
     }
 
-    private fun updateVisibilityForAppBarLayout(parent: CoordinatorLayout, appBarLayout: AppBarLayout, child: CardView): Boolean {
+    private fun updateVisibilityForAppBarLayout(appBarLayout: AppBarLayout, child: CardView): Boolean {
         if (!shouldUpdateVisibility(appBarLayout, child)) {
             return false
         }
