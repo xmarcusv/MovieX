@@ -3,13 +3,24 @@ package com.xmarcusv.moviex.model
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcel
+import android.os.Parcelable
 import com.squareup.moshi.Json
-import org.parceler.Parcel
-import org.parceler.ParcelConstructor
+import paperparcel.PaperParcel
+
+@Entity(tableName = "movie_list")
+data class MovieListTypeRelation(
+        @PrimaryKey(autoGenerate = true) val id: Long?,
+
+        @ColumnInfo(name = "list_type")
+        val listType: String,
+
+        @ColumnInfo(name = "movie_id")
+        val movieId: Int)
 
 @Entity(tableName = "movies")
-@Parcel(Parcel.Serialization.BEAN)
-data class Movie @ParcelConstructor constructor(
+@PaperParcel
+data class Movie(
         @PrimaryKey
         @Json(name = "id")
         var id: Int,
@@ -59,18 +70,61 @@ data class Movie @ParcelConstructor constructor(
 
         @Json(name = "release_date")
         @ColumnInfo(name = "release_date")
-        var releaseDate: String)
+        var releaseDate: String
+) : Parcelable {
+    companion object {
+        @JvmField
+        val CREATOR = PaperParcelMovie.CREATOR
+    }
 
+    override fun describeContents() = 0
 
-@Entity(tableName = "movie_list")
-data class MovieListTypeRelation(
-        @PrimaryKey(autoGenerate = true) val id: Long?,
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        PaperParcelMovie.writeToParcel(this, dest, flags)
+    }
+}
 
-        @ColumnInfo(name = "list_type")
-        val listType: String,
+data class Cast(
+        @Json(name = "cast_id")
+        var castId: Int? = null,
+        @Json(name = "character")
+        var character: String? = null,
+        @Json(name = "credit_id")
+        var creditId: String? = null,
+        @Json(name = "gender")
+        var gender: Int? = null,
+        @Json(name = "id")
+        var id: Int? = null,
+        @Json(name = "name")
+        var name: String? = null,
+        @Json(name = "order")
+        var order: Int? = null,
+        @Json(name = "profile_path")
+        var profilePath: Any? = null)
 
-        @ColumnInfo(name = "movie_id")
-        val movieId: Int)
+data class Crew(
+        @Json(name = "credit_id")
+        var creditId: String? = null,
+        @Json(name = "department")
+        var department: String? = null,
+        @Json(name = "gender")
+        var gender: Int? = null,
+        @Json(name = "id")
+        var id: Int? = null,
+        @Json(name = "job")
+        var job: String? = null,
+        @Json(name = "name")
+        var name: String? = null,
+        @Json(name = "profile_path")
+        var profilePath: Any? = null)
+
+data class MovieCredits(
+        @Json(name = "id")
+        var id: Int? = null,
+        @Json(name = "cast")
+        var cast: List<Cast>? = null,
+        @Json(name = "crew")
+        var crew: List<Crew>? = null)
 
 data class MoviesResponse(
         var page: Int,

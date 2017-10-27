@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <transitionSet>
+        <targets>
+            <target android:excludeId="@android:id/navigationBarBackground" />
+            <target android:excludeId="@android:id/statusBarBackground" />
+            <target android:excludeId="@id/poster" />
+        </targets>
+        <transition
+            class="com.xmarcusv.moviex.ui.widget.StaggeredDistanceSlide"
+            android:duration="350"
+            android:interpolator="@android:interpolator/linear_out_slow_in" />
+        <fade
+            android:duration="100"
+            android:interpolator="@android:interpolator/linear"
+            android:startDelay="250" />
+    </transitionSet>
+
+    <fade
+        android:duration="350"
+        android:interpolator="@android:interpolator/linear">
+        <targets>
+            <target android:targetId="@android:id/statusBarBackground" />
+            <target android:targetId="@android:id/navigationBarBackground" />
+        </targets>
+    </fade>
+
+</transitionSet>

@@ -11,8 +11,11 @@
     </data>
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:transitionName="@string/transition_background">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar_layout"
@@ -28,10 +31,11 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
+                    android:id="@+id/backdrop"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
+                    android:adjustViewBounds="true"
                     android:contentDescription="@{null}"
-                    android:fitsSystemWindows="true"
                     app:src="@{viewModel.backdropUrl}"
                     tools:src="@mipmap/ic_launcher_round" />
 
@@ -62,37 +66,72 @@
         <android.support.v7.widget.CardView
             android:id="@+id/poster_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="140dp"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="2dp"
             app:cardElevation="8dp"
             app:layout_anchor="@id/app_bar_layout"
-            app:layout_anchorGravity="bottom|left|start"
-            app:layout_behavior="com.xmarcusv.moviex.util.MoviePosterBehavior">
+            app:layout_anchorGravity="bottom|left|start">
 
             <ImageView
+                android:id="@+id/poster"
                 android:layout_width="wrap_content"
                 android:layout_height="140dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@{null}"
+                android:transitionName="@string/poster_transition"
+                app:imageCallback="@{viewModel.posterGlideCallback}"
                 app:src="@{viewModel.posterUrl}"
                 tools:src="@mipmap/ic_launcher_round" />
 
         </android.support.v7.widget.CardView>
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_anchor="@+id/app_bar_layout"
-            app:layout_anchorGravity="center_horizontal|bottom">
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Movie Title" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/movie_overview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.movie.overview}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="Movie overview" />
+
+                <TextView
+                    android:id="@+id/movie_director_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/director"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movie_overview" />
+
+                <TextView
+                    android:id="@+id/movie_director"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/movie_director_label"
+                    app:layout_constraintTop_toBottomOf="@id/movie_overview"
+                    tools:text="Tarantino" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
     </android.support.design.widget.CoordinatorLayout>
 </layout>

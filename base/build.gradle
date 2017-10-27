@@ -1,0 +1,85 @@
+apply plugin: 'com.android.feature'
+
+apply plugin: 'kotlin-android'
+
+android {
+    def androidVersions = rootProject.ext.android
+
+    compileSdkVersion androidVersions.compileSdkVersion
+
+    baseFeature true
+
+    defaultConfig {
+        minSdkVersion androidVersions.minSdkVersion
+        targetSdkVersion androidVersions.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    application project(':app')
+    
+    def commonDependencies = rootProject.ext.commonDependencies
+
+    api commonDependencies.kotlinJre
+    api commonDependencies.supportAppCompatV7
+    api commonDependencies.supportDesign
+    api commonDependencies.constraintLayout
+    api commonDependencies.vectorDrawable
+    api commonDependencies.supportCardView
+
+    api commonDependencies.anko
+
+    api commonDependencies.retrofit2
+    api commonDependencies.retrofitConverter
+    api commonDependencies.retrofitRxAdapter
+    api commonDependencies.okHttpInterceptor
+    api commonDependencies.moshi
+
+    api commonDependencies.timber
+    api commonDependencies.glide
+    annotationProcessor commonDependencies.glideCompiler
+    annotationProcessor commonDependencies.dataBindingCompiler
+
+    // dagger
+    api commonDependencies.dagger2
+    api commonDependencies.dagger2Android
+    api commonDependencies.dagger2AndroidSupport
+    annotationProcessor commonDependencies.dagger2AndroidCompiler
+    annotationProcessor commonDependencies.dagger2Compiler
+
+    // arch
+    api commonDependencies.archLifecycleRuntime
+    api commonDependencies.archLifecycleExtensions
+    api commonDependencies.roomRuntime
+    api commonDependencies.roomRxJava
+    annotationProcessor commonDependencies.roomCompiler
+    annotationProcessor commonDependencies.archLifecycleCompiler
+
+    // rx java
+    api commonDependencies.rxJava2
+    api commonDependencies.rxAndroid
+
+    api commonDependencies.paperParceler
+    api commonDependencies.paperParcelerKotlin
+    annotationProcessor commonDependencies.paperParcelerCompiler
+}

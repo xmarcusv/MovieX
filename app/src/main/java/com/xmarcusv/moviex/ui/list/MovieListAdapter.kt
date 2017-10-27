@@ -1,14 +1,15 @@
 package com.xmarcusv.moviex.ui.list
 
 import android.arch.lifecycle.MediatorLiveData
+import android.view.View
 import com.xmarcusv.moviex.R
 import com.xmarcusv.moviex.databinding.MovieRowBinding
 import com.xmarcusv.moviex.model.Movie
-import com.xmarcusv.moviex.ui.DataBindAdapter
+import com.xmarcusv.moviex.base.DataBindAdapter
 
 class MovieListAdapter : DataBindAdapter<Movie, MovieRowBinding>(R.layout.movie_row) {
 
-    val movieLiveData = MediatorLiveData<Movie>()
+    val movieLiveData = MediatorLiveData<Pair<View, Movie>>()
 
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id

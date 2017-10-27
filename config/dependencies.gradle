@@ -1,0 +1,82 @@
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+ext {
+    support_version = '26.1.0'
+    constraint_version = '1.0.2'
+    retrofit_version = '2.3.0'
+    dagger_version = "2.12"
+    arch_version = "1.0.0-rc1"
+    moshi_version = "1.5.0"
+    timber_version = "4.5.1"
+    okhttp_version = "3.8.1"
+    glide_version = "4.2.0"
+    anko_version = "0.10.1"
+    rx_java2 = "2.1.5"
+    rx_android = "2.0.1"
+    data_bind_compiler = "3.0.0"
+    paper_parceler_version = "2.0.4"
+
+    commonDependencies = [
+
+            kotlinJre                  : "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlin_version}",
+            anko                        : "org.jetbrains.anko:anko-common:${anko_version}",
+
+            rxJava2                     : "io.reactivex.rxjava2:rxjava:${rx_java2}",
+            rxAndroid                   : "io.reactivex.rxjava2:rxandroid:${rx_android}",
+
+            dagger2Compiler             : "com.google.dagger:dagger-compiler:${dagger_version}",
+            dagger2                     : "com.google.dagger:dagger:${dagger_version}",
+            dagger2Android              : "com.google.dagger:dagger-android:${dagger_version}",
+            dagger2AndroidSupport       : "com.google.dagger:dagger-android-support:${dagger_version}",
+            dagger2AndroidCompiler      : "com.google.dagger:dagger-android-processor:${dagger_version}",
+
+            supportAppCompatV7          : "com.android.support:appcompat-v7:${support_version}",
+            supportDesign               : "com.android.support:design:${support_version}",
+            supportV13                  : "com.android.support:support-v13:${support_version}",
+            supportAnnotation           : "com.android.support:support-annotations:${support_version}",
+            supportCardView             : "com.android.support:cardview-v7:${support_version}",
+            supportRecyclerView         : "com.android.support:recyclerview-v7:${support_version}",
+            constraintLayout            : "com.android.support.constraint:constraint-layout:${constraint_version}",
+            vectorDrawable              : "com.android.support:support-vector-drawable:${support_version}",
+
+            roomRuntime                 : "android.arch.persistence.room:runtime:${arch_version}",
+            roomCompiler                : "android.arch.persistence.room:compiler:${arch_version}",
+            roomTesting                 : "android.arch.persistence.room:testing:${arch_version}",
+            roomRxJava                  : "android.arch.persistence.room:rxjava2:${arch_version}",
+
+            archLifecycleRuntime        : "android.arch.lifecycle:runtime:${arch_version}",
+            archLifecycleExtensions     : "android.arch.lifecycle:extensions:${arch_version}",
+            archLifecycleReactiveStreams: "android.arch.lifecycle:reactivestreams:${arch_version}",
+            archLifecycleCompiler       : "android.arch.lifecycle:compiler:${arch_version}",
+
+            okHttp                      : "com.squareup.okhttp3:okhttp:${okhttp_version}",
+            okHttpInterceptor           : "com.squareup.okhttp3:logging-interceptor:${okhttp_version}",
+
+            retrofit2                   : "com.squareup.retrofit2:retrofit:${retrofit_version}",
+            retrofitRxAdapter           : "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}",
+            retrofitConverter           : "com.squareup.retrofit2:converter-moshi:${retrofit_version}",
+
+            moshi                       : "com.squareup.moshi:moshi-kotlin:${moshi_version}",
+
+            glide                       : "com.github.bumptech.glide:glide:${glide_version}",
+            glideCompiler               : "com.github.bumptech.glide:compiler:${glide_version}",
+
+            timber                      : "com.jakewharton.timber:timber:${timber_version}",
+
+            dataBindingCompiler         : "com.android.databinding:compiler:${data_bind_compiler}",
+
+            paperParceler               : "nz.bradcampbell:paperparcel:${paper_parceler_version}",
+            paperParcelerKotlin         : "nz.bradcampbell:paperparcel-kotlin:${paper_parceler_version}",
+            paperParcelerCompiler       : "nz.bradcampbell:paperparcel-compiler:${paper_parceler_version}"
+    ]
+
+    commonTestDependencies = [
+
+    ]
+}

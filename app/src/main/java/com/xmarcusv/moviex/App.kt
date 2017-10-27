@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.util.Log
 import com.xmarcusv.moviex.di.DaggerAppComponent
-import com.xmarcusv.moviex.di.applyAutoInjector
+import com.xmarcusv.moviex.base.applyAutoInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import timber.log.Timber
@@ -21,7 +21,11 @@ class App : Application(), HasActivityInjector {
         applyAutoInjector()
 
         if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
+            Timber.plant(object : Timber.DebugTree() {
+                override fun createStackElementTag(element: StackTraceElement): String {
+                    return "(${element.fileName}:${element.lineNumber})"
+                }
+            })
         } else {
             Timber.plant(object : Timber.DebugTree() {
                 override fun isLoggable(tag: String?, priority: Int): Boolean {

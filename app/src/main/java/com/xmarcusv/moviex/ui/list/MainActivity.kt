@@ -5,14 +5,16 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.xmarcusv.moviex.R
 import com.xmarcusv.moviex.databinding.ActivityMainBinding
-import com.xmarcusv.moviex.di.Injectable
+import com.xmarcusv.moviex.base.Injectable
 import com.xmarcusv.moviex.model.Movie
 import com.xmarcusv.moviex.ui.details.MovieDetailsActivity
-import com.xmarcusv.moviex.util.observe
+import com.xmarcusv.moviex.base.observe
 import javax.inject.Inject
 
 
@@ -57,9 +59,15 @@ class MainActivity : AppCompatActivity(), Injectable {
         upcomingAdapter.movieLiveData.observe(this, this::openDetailsActivity)
     }
 
-    private fun openDetailsActivity(selectedMovie: Movie?) {
-        selectedMovie?.let {
-            MovieDetailsActivity.startActivity(this, selectedMovie)
+    private fun openDetailsActivity(selected: Pair<View, Movie>?) {
+        selected?.let {
+            val imageView = selected.first.findViewById<View>(R.id.movie_poster)
+
+            val posterPair = android.support.v4.util.Pair.create(imageView, getString(R.string.poster_transition))
+            val backgroundPair = android.support.v4.util.Pair.create(selected.first, getString(R.string.transition_background))
+
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity, posterPair, backgroundPair)
+            MovieDetailsActivity.startActivity(this, selected.second, options)
         }
     }
 }

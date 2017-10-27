@@ -1,13 +1,15 @@
 package com.xmarcusv.moviex.repository
 
 import com.xmarcusv.moviex.api.MovieService
+import com.xmarcusv.moviex.base.Resource
 import com.xmarcusv.moviex.db.MovieDao
 import com.xmarcusv.moviex.db.MovieDb
 import com.xmarcusv.moviex.model.Movie
+import com.xmarcusv.moviex.model.MovieCredits
 import com.xmarcusv.moviex.model.MovieListType
 import com.xmarcusv.moviex.model.MovieListTypeRelation
-import com.xmarcusv.moviex.model.Resource
-import com.xmarcusv.moviex.util.RateLimiter
+import com.xmarcusv.moviex.base.RateLimiter
+import com.xmarcusv.moviex.base.RepositoryProcessor
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -19,9 +21,9 @@ import javax.inject.Inject
 
 class MovieRepository @Inject constructor(private val movieService: MovieService, private val db: MovieDb, private val movieDao: MovieDao) {
 
-    val rateLimit = RateLimiter<String>(2, TimeUnit.MINUTES)
+    val rateLimit = RateLimiter<String>(10, TimeUnit.MINUTES)
 
-    fun getMovies(login: Int = 1, language: String = "en-US", movieListType: MovieListType = MovieListType.POPULAR): Flowable<Resource<List<Movie>>> {
+    fun getMovies(page: Int = 1, language: String = "en-US", movieListType: MovieListType = MovieListType.POPULAR): Flowable<Resource<List<Movie>>> {
 
         return object : RepositoryProcessor<List<Movie>>() {
             override fun shouldFetch(data: List<Movie>?): Boolean {
@@ -37,7 +39,7 @@ class MovieRepository @Inject constructor(private val movieService: MovieService
             }
 
             override fun createCall(): Single<List<Movie>> {
-                return movieService.getMovies(movieListType.path, login, language).map { result -> result.results }
+                return movieService.getMovies(movieListType.path, page, language).map { result -> result.results }
             }
 
             override fun onFetchFailed() {
@@ -45,6 +47,10 @@ class MovieRepository @Inject constructor(private val movieService: MovieService
             }
 
         }.execute().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getMovieCredits(movieId: Int): Single<MovieCredits> {
+       return movieService.getMovieCredits(movieId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     private fun deleteAllAndInsertMovieListRelation(item: List<Movie>, movieListType: MovieListType) {

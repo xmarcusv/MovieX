@@ -1,0 +1,20 @@
+def getMovieDBKey = { ->
+    def code = project.hasProperty('tmdbKey') ? tmdbKey : "\"\""
+    return code
+}
+
+def getMinSdkVersion = { ->
+    def code = project.hasProperty('minSdk') ? minSdk : 16
+    return code
+}
+
+ext {
+    android = [
+            buildToolsVersion: "26.0.2",
+            minSdkVersion    : getMinSdkVersion(),
+            targetSdkVersion : 26,
+            compileSdkVersion: 26
+    ]
+
+    movieDBKey = getMovieDBKey()
+}

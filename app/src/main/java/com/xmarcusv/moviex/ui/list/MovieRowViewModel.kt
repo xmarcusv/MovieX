@@ -9,12 +9,12 @@ import com.xmarcusv.moviex.util.Constants
 
 class MovieRowViewModel(private val movie: Movie) {
 
-    val selectedMovieLiveData = MutableLiveData<Movie>()
+    val selectedMovieLiveData = MutableLiveData<Pair<View, Movie>>()
 
     fun getTitle(): String = movie.originalTitle
 
     fun onMovieClicked(view: View) {
-        selectedMovieLiveData.value = movie
+        selectedMovieLiveData.value = Pair(view, movie)
     }
 
     fun getPosterUrl(): String {

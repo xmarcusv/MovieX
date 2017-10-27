@@ -4,4 +4,8 @@
     <string name="title_popular">MOST POPULAR</string>
     <string name="title_top_rated">TOP RATED</string>
     <string name="title_upcoming">UPCOMING</string>
+
+    <string name="poster_transition" translatable="false">poster</string>
+    <string name="transition_background" translatable="false">transition_backgroud</string>
+    <string name="director">Director: </string>
 </resources>

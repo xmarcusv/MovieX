@@ -3,12 +3,12 @@ package com.xmarcusv.moviex.ui.list
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
 import android.view.View
+import com.xmarcusv.moviex.base.Resource
+import com.xmarcusv.moviex.base.Status
 import com.xmarcusv.moviex.model.Movie
 import com.xmarcusv.moviex.model.MovieListType
-import com.xmarcusv.moviex.model.Resource
-import com.xmarcusv.moviex.model.Status
 import com.xmarcusv.moviex.repository.MovieRepository
-import com.xmarcusv.moviex.ui.BaseViewModel
+import com.xmarcusv.moviex.base.BaseViewModel
 import javax.inject.Inject
 
 class MovieViewModel @Inject constructor(private var movieRepository: MovieRepository) : BaseViewModel() {
