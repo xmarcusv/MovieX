@@ -1,68 +1,44 @@
 package com.xmarcusv.moviex.ui.details
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
-import android.databinding.Bindable
-import android.graphics.drawable.Drawable
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
-import com.xmarcusv.moviex.model.Movie
-import com.xmarcusv.moviex.repository.MovieRepository
+import android.databinding.ObservableField
 import com.xmarcusv.moviex.base.BaseViewModel
+import com.xmarcusv.moviex.base.GlideLiveDataCallback
+import com.xmarcusv.moviex.model.Movie
+import com.xmarcusv.moviex.model.MovieCredits
+import com.xmarcusv.moviex.repository.MovieRepository
 import com.xmarcusv.moviex.util.Constants
 import timber.log.Timber
 import javax.inject.Inject
 
 class MovieDetailsViewModel @Inject constructor(private var movieRepository: MovieRepository) : BaseViewModel() {
 
-    val selectedMovie = MutableLiveData<Movie>()
-    val onImageReady = MutableLiveData<Drawable>()
-    val data: LiveData<*>
-
-    init {
-        data = Transformations.map(selectedMovie, {
-            Timber.d("Transformations")
-            notifyChange()
-        })
-    }
+    val selectedMovie = ObservableField<Movie>()
+    val movieCredits = ObservableField<MovieCredits>()
+    val onImageReady = GlideLiveDataCallback()
 
     fun setMovie(movie: Movie) {
-        selectedMovie.value = movie
+        selectedMovie.set(movie)
+
+        /*notifyPropertyChanged(BR.backdropUrl)
+        notifyPropertyChanged(BR.posterUrl)*/
 
         compositeDisposable.add(movieRepository.getMovieCredits(movie.id).subscribe({
             Timber.d("loaded movie ${it.id}")
+            movieCredits.set(it)
         }, {
 
         }))
     }
 
-    fun getMovie(): Movie? {
-        return selectedMovie.value
-    }
-
-    @Bindable
     fun getPosterUrl(): String {
-        return Constants.IMAGE_URL.format(Constants.POSTER_SIZE, selectedMovie.value?.posterPath)
+        return Constants.IMAGE_URL.format(Constants.POSTER_SIZE, selectedMovie.get()?.posterPath)
     }
 
-    @Bindable
     fun getBackdropUrl(): String {
-        return Constants.IMAGE_URL.format(Constants.BACKDROP_SIZE, selectedMovie.value?.backdropPath)
+        return Constants.IMAGE_URL.format(Constants.BACKDROP_SIZE, selectedMovie.get()?.backdropPath)
     }
 
-    fun getPosterGlideCallback(): RequestListener<Drawable> {
-        return object : RequestListener<Drawable> {
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                return false
-            }
-
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                onImageReady.value = resource
-                return false
-            }
-        }
+    fun getPosterGlideCallback(): GlideLiveDataCallback {
+        return onImageReady
     }
 }

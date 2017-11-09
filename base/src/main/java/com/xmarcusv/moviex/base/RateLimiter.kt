@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Utility class that decides whether we should fetch some data or not.
  */
-class RateLimiter<KEY>(timeout: Int, timeUnit: TimeUnit) {
+class RateLimiter<in KEY>(timeout: Int, timeUnit: TimeUnit) {
     private val timestamps = ArrayMap<KEY, Long>()
     private val timeout: Long = timeUnit.toMillis(timeout.toLong())
 

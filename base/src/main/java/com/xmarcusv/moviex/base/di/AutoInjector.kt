@@ -1,4 +1,4 @@
-package com.xmarcusv.moviex.base
+package com.xmarcusv.moviex.base.di
 
 import android.app.Activity
 import android.app.Application

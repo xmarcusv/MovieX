@@ -10,11 +10,11 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.xmarcusv.moviex.R
+import com.xmarcusv.moviex.base.di.Injectable
+import com.xmarcusv.moviex.base.observe
 import com.xmarcusv.moviex.databinding.ActivityMainBinding
-import com.xmarcusv.moviex.base.Injectable
 import com.xmarcusv.moviex.model.Movie
 import com.xmarcusv.moviex.ui.details.MovieDetailsActivity
-import com.xmarcusv.moviex.base.observe
 import javax.inject.Inject
 
 
@@ -40,14 +40,14 @@ class MainActivity : AppCompatActivity(), Injectable {
 
     private fun initUI(binding: ActivityMainBinding) {
         with(binding) {
-            binding.popularList.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-            binding.popularList.adapter = mostPopularAdapter
+            popularList.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            popularList.adapter = mostPopularAdapter
 
-            binding.topRatedList.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-            binding.topRatedList.adapter = topRatedAdapter
+            topRatedList.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            topRatedList.adapter = topRatedAdapter
 
-            binding.upcomingList.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-            binding.upcomingList.adapter = upcomingAdapter
+            upcomingList.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            upcomingList.adapter = upcomingAdapter
         }
 
         movieViewModel.mostPopularList.observe(this, Observer { it?.data?.let { mostPopularAdapter.update(it) } })

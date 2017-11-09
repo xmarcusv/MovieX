@@ -9,7 +9,7 @@ abstract class RepositoryProcessor<RequestType> {
     protected abstract fun createCall(): Single<RequestType>
 
     fun execute(): Flowable<Resource<RequestType>> {
-        return Maybe.merge(getLoading(), getMappedSource())
+        return Maybe.merge(getLoading(), getSources())
                 .onErrorReturn { t: Throwable ->
                     Resource.error(t.message, null)
                 }
@@ -30,19 +30,15 @@ abstract class RepositoryProcessor<RequestType> {
                 .doAfterSuccess { data -> saveCallResult(data) }
     }
 
-    private fun loadCacheIfIsStillValid(): Maybe<RequestType> {
+    private fun loadCacheIfShould(): Maybe<RequestType> {
         return loadFromDb()
                 .filter { data -> !shouldFetch(data) }
     }
 
-    private fun getSources(): Maybe<RequestType> {
+    private fun getSources(): Maybe<Resource<RequestType>> {
         return Maybe
-                .concat(loadCacheIfIsStillValid(), fetchNetworkAndSaveTheResponse())
+                .concat(loadCacheIfShould(), fetchNetworkAndSaveTheResponse())
                 .firstElement()
-    }
-
-    private fun getMappedSource(): Maybe<Resource<RequestType>> {
-        return getSources()
                 .map { t -> Resource.success(t) }
     }
 

@@ -10,52 +10,47 @@
             type="com.xmarcusv.moviex.ui.list.MovieRowViewModel" />
     </data>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/poster_height"
+        android:onClick="@{viewModel::onMovieClicked}"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="5dp">
 
-        <android.support.v7.widget.CardView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/poster_height"
-            android:onClick="@{viewModel::onMovieClicked}"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="10dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            android:layout_height="wrap_content">
 
-            <android.support.constraint.ConstraintLayout
+            <ImageView
+                android:id="@+id/movie_poster"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/poster_height"
+                android:adjustViewBounds="true"
+                android:contentDescription="@{null}"
+                app:imageOptions="@{viewModel.posterOptions}"
+                app:layout_constraintBottom_toTopOf="@+id/movie_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:src="@{viewModel.posterUrl}"
+                tools:layout_width="100dp" />
 
-                <ImageView
-                    android:id="@+id/movie_poster"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/poster_height"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@{null}"
-                    app:layout_constraintBottom_toTopOf="@+id/movie_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:src="@{viewModel.posterUrl}"
-                    app:imageOptions="@{viewModel.posterOptions}"
-                    tools:layout_width="100dp" />
+            <TextView
+                android:id="@+id/movie_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@{viewModel.title}"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/movie_poster"
+                app:layout_constraintStart_toStartOf="@id/movie_poster"
+                tools:text="Teste" />
 
-                <TextView
-                    android:id="@+id/movie_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="@{viewModel.title}"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/movie_poster"
-                    app:layout_constraintStart_toStartOf="@id/movie_poster"
-                    tools:text="Teste" />
-
-            </android.support.constraint.ConstraintLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 </layout>

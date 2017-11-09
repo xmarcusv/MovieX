@@ -11,12 +11,10 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import com.xmarcusv.moviex.R
+import com.xmarcusv.moviex.base.di.Injectable
 import com.xmarcusv.moviex.databinding.ActivityDetailsBinding
-import com.xmarcusv.moviex.base.Injectable
 import com.xmarcusv.moviex.model.Movie
 import com.xmarcusv.moviex.ui.widget.MoviePosterBehavior
-import com.xmarcusv.moviex.base.observe
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -48,17 +46,8 @@ class MovieDetailsActivity : AppCompatActivity(), Injectable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val binding = DataBindingUtil.setContentView<ActivityDetailsBinding>(this, R.layout.activity_details)
         binding.viewModel = viewModel
-
-        viewModel.selectedMovie.observe(this, {
-            Timber.d("selectedMovie")
-        })
-
-        viewModel.data.observe(this, {
-            Timber.d("data")
-        })
 
         selectedMovie = intent.extras.getParcelable(MOVIE_PARAM)
 

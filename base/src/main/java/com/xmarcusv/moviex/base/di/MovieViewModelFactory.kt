@@ -1,4 +1,4 @@
-package com.xmarcusv.moviex.base
+package com.xmarcusv.moviex.base.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

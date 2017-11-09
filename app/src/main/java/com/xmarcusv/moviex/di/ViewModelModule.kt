@@ -2,8 +2,8 @@ package com.xmarcusv.moviex.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.xmarcusv.moviex.base.MovieViewModelFactory
-import com.xmarcusv.moviex.base.ViewModelKey
+import com.xmarcusv.moviex.base.di.MovieViewModelFactory
+import com.xmarcusv.moviex.base.di.ViewModelKey
 import com.xmarcusv.moviex.ui.details.MovieDetailsViewModel
 import com.xmarcusv.moviex.ui.list.MovieViewModel
 import dagger.Binds

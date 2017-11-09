@@ -50,7 +50,7 @@ class MovieRepository @Inject constructor(private val movieService: MovieService
     }
 
     fun getMovieCredits(movieId: Int): Single<MovieCredits> {
-       return movieService.getMovieCredits(movieId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        return movieService.getMovieCredits(movieId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     private fun deleteAllAndInsertMovieListRelation(item: List<Movie>, movieListType: MovieListType) {
